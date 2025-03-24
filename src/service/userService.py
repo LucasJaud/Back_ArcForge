@@ -36,3 +36,8 @@ class UsuarioService:
         
         newUser = self.dao.save(user)
         return newUser if newUser else None
+    
+    def get_user_by_id(self, id: int):
+        # user = QueryBuilder(User).filter(id=id).execute()
+        user = self.dao.read(id)
+        return user if user else None
