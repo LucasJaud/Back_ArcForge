@@ -1,4 +1,4 @@
-from arcforge.core.db import DAO 
+from arcforge.core.db import DAO, QueryBuilder 
 from src.models.user import User
 import re
 
@@ -31,7 +31,7 @@ class UsuarioService:
         if not re.match(self.PASSWORD_REGEX, user.password):
             return None
         
-        if user.nome == "":
+        if user.name == "":
             return None
         
         newUser = self.dao.save(user)

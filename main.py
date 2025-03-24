@@ -1,9 +1,11 @@
-from src.controller import ControllerUser
+from src.controller.ControllerUser import UserController
 from arcforge.core.conn import *
 import logging
 
 if __name__ == "__main__":
-    ControllerUser()
+    UserController()
+    
+    
 
     server = WebServer(port=8080)
     try:

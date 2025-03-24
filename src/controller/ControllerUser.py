@@ -4,12 +4,14 @@ from ..service.userService import UsuarioService
 
 class UserController(Controller):
 
+    
+
     @Router.route("/login","POST")
     def login(request: Request):
         user_data = request.body
 
         user = User(**user_data)
-        authUser = UsuarioService.login(user)
+        authUser = UsuarioService().login(user)
         
         if authUser:
             return JsonResponse(HttpStatus.OK,authUser)
@@ -21,9 +23,11 @@ class UserController(Controller):
         user_data = request.body
         user = User(**user_data)
 
-        newUser = UsuarioService.cadastro(user)
+        newUser = UsuarioService().cadastro(user)
+        print(newUser)
 
         return JsonResponse(HttpStatus.OK,newUser) if newUser else JsonResponse(HttpStatus.BAD_REQUEST,{"erro":"Usuario não encontrado!!"})
+
 
 
 
