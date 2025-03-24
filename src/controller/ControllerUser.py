@@ -4,6 +4,12 @@ from ..service.userService import UsuarioService
 
 class UserController(Controller):
 
+    response_headers = {
+        "Access-Control-Allow-Origin": "*",  
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+    }
+
     
 
     @Router.route("/login","POST")
@@ -14,9 +20,9 @@ class UserController(Controller):
         authUser = UsuarioService().login(user)
         
         if authUser:
-            return JsonResponse(HttpStatus.OK,authUser)
+            return JsonResponse(headers=UserController.response_headers,status=HttpStatus.OK,data=authUser)
         
-        return JsonResponse(HttpStatus.BAD_REQUEST,{"erro":"Usuario não encontrado!!"})
+        return JsonResponse(headers=UserController.response_headers,status=HttpStatus.BAD_REQUEST,data={"erro":"Usuario não encontrado!!"})
     
     @Router.route("/signIn","POST")
     def cadastro(request: Request):
@@ -26,7 +32,7 @@ class UserController(Controller):
         newUser = UsuarioService().cadastro(user)
         print(newUser)
 
-        return JsonResponse(HttpStatus.OK,newUser) if newUser else JsonResponse(HttpStatus.BAD_REQUEST,{"erro":"Usuario não encontrado!!"})
+        return JsonResponse(headers=UserController.response_headers,status=HttpStatus.OK,data=newUser) if newUser else JsonResponse(headers=UserController.response_headers,status=HttpStatus.BAD_REQUEST,data={"erro":"Usuario não encontrado!!"})
 
 
 
